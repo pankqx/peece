@@ -9,7 +9,9 @@ const RED = '#c4122f';
 const BLUE = '#1d4f9e';
 const YEL = '#f2c12e';
 const SKIN = '#fbeedd';
-const S = `stroke="${INK}" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"`;
+// Default stroke width (1.3) is inherited from a wrapping <g>, so elements can override it
+// without duplicating the attribute (duplicate attributes make the SVG invalid XML).
+const S = `stroke="${INK}" stroke-linejoin="round" stroke-linecap="round"`;
 
 const spade = (x, y, s, fill = INK) => `<path d="${SUIT_PATHS[0]}" transform="translate(${x} ${y}) scale(${s / 100})" fill="${fill}"/>`;
 
@@ -112,8 +114,8 @@ export function classicKingSvg(scale = 3) {
   <rect width="250" height="350" rx="14" fill="url(#paperG)"/>
   <rect width="250" height="350" rx="14" fill="#fff" filter="url(#grain)"/>
   <rect x="38" y="40" width="174" height="270" fill="#fff"/>
-  <g clip-path="url(#half)">${half()}</g>
-  <g transform="rotate(180 125 175)"><g clip-path="url(#half)">${half()}</g></g>
+  <g clip-path="url(#half)" stroke-width="1.3">${half()}</g>
+  <g transform="rotate(180 125 175)"><g clip-path="url(#half)" stroke-width="1.3">${half()}</g></g>
   <path d="M38 175 H212" stroke="${INK}" stroke-width="1.4"/>
   <rect x="38" y="40" width="174" height="270" fill="none" stroke="${INK}" stroke-width="1.6"/>
   <rect x="35" y="37" width="180" height="276" fill="none" stroke="${INK}" stroke-width=".6"/>

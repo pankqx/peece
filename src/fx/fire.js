@@ -38,7 +38,7 @@ function glowSprite(color, size = 64) {
  * createFire({ back, front, target }) — `back` and `front` are canvases layered behind and in
  * front of `target` (the burning card). Returns { start, stop, flare, setIntensity }.
  */
-export function createFire({ back, front, target, budget = 1 }) {
+export function createFire({ back, front, target, budget = 1, embersOnly = false }) {
   const ctxB = back.getContext('2d');
   const ctxF = front.getContext('2d');
   const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -143,8 +143,8 @@ export function createFire({ back, front, target, budget = 1 }) {
     last = now;
     const t = now / 1000;
     rect = target.getBoundingClientRect();
-    emit(Math.round(160 * dt * budget * (0.6 + intensity)));
-    emitEmbers(Math.random() < 30 * dt * budget * intensity ? 1 : 0);
+    if (!embersOnly) emit(Math.round(160 * dt * budget * (0.6 + intensity)));
+    emitEmbers(Math.random() < (embersOnly ? 45 : 30) * dt * budget * intensity ? 1 : 0);
 
     for (const ctx of [ctxB, ctxF]) {
       ctx.globalCompositeOperation = 'source-over';
@@ -152,6 +152,7 @@ export function createFire({ back, front, target, budget = 1 }) {
       ctx.globalCompositeOperation = 'lighter';
     }
 
+    if (!embersOnly) {
     // Warm floor glow behind everything.
     const glow = ctxB.createRadialGradient(rect.left + rect.width / 2, rect.bottom, 0, rect.left + rect.width / 2, rect.bottom, rect.width * 1.1);
     glow.addColorStop(0, `rgba(255,120,40,${0.2 * intensity})`);
@@ -176,6 +177,7 @@ export function createFire({ back, front, target, budget = 1 }) {
     }
     ctxF.globalAlpha = ctxB.globalAlpha = 1;
 
+    }
     embers = embers.filter((e) => (e.life += dt) < e.max);
     for (const e of embers) {
       e.y += e.vy * dt;

@@ -3,6 +3,8 @@ import { h, trusted, reducedMotion, sleep } from '../dom.js';
 import { crownSvg } from '../../cards/crown.js';
 import { createCard } from '../../cards/renderCard.js';
 import { createFire } from '../../fx/fire.js';
+import { createBurn, svgImage } from '../../fx/burnGL.js';
+import { classicKingSvg } from '../../cards/classicKing.js';
 import '../../styles/loader.css';
 
 const SEEN = 'peece.loaderSeen';
@@ -46,6 +48,7 @@ export async function runLoader(tasks = []) {
   const letters = [...'PEECE'].map((ch) => h('span', { class: 'loader__letter' }, ch));
   const back = h('canvas', { class: 'loader__canvas loader__canvas--back', 'aria-hidden': 'true' });
   const front = h('canvas', { class: 'loader__canvas loader__canvas--front', 'aria-hidden': 'true' });
+  const glCanvas = h('canvas', { class: 'loader__canvas loader__canvas--gl', 'aria-hidden': 'true' });
   const skip = h('button', { class: 'btn btn--ghost btn--sm loader__skip', type: 'button' }, 'Skip');
   const pct = h('span', { class: 'loader__pct tabular' }, '0%');
 
@@ -63,14 +66,30 @@ export async function runLoader(tasks = []) {
       h('p', { class: 'loader__tag' }, 'The midnight card lounge'),
       pct
     ),
-    h('div', { class: 'loader__stage' }, king),
+    h('div', { class: 'loader__stage' }, h('div', { class: 'loader__glow', 'aria-hidden': 'true' }), king),
+    glCanvas,
     front,
     h('div', { class: 'loader__flash' }),
     skip
   );
   document.body.append(el);
 
-  const fire = calm ? null : createFire({ back, front, target: king, budget: lowEnd ? 0.55 : 1 });
+  // Preferred: a photoreal WebGL burn of the classic King. Fallback: SVG card + canvas fire.
+  let burn = null;
+  if (!calm) {
+    try {
+      const img = await Promise.race([svgImage(classicKingSvg(lowEnd ? 2 : 3)), sleep(1500).then(() => Promise.reject(new Error('slow')))]);
+      burn = createBurn({ canvas: glCanvas, image: img, target: king });
+    } catch {
+      burn = null;
+    }
+  }
+  if (burn) {
+    el.classList.add('is-gl');
+    burn.start();
+    burn.burnTo(0.4, 2600);
+  }
+  const fire = calm ? null : createFire({ back, front, target: king, budget: lowEnd ? 0.55 : 1, embersOnly: !!burn });
   fire?.start();
 
   // Heat shimmer: drift the turbulence frequency.
@@ -113,11 +132,16 @@ export async function runLoader(tasks = []) {
   if (!skipped && !calm) {
     el.classList.add('is-flaring');
     fire?.flare();
-    await sleep(700);
+    if (burn) {
+      burn.flare();
+      burn.burnTo(1.45, 1100);
+      await sleep(1000);
+    } else await sleep(700);
   }
   el.classList.add('is-out');
   await sleep(calm ? 300 : 650);
   fire?.stop();
+  burn?.stop();
   cancelAnimationFrame(shimmerRaf);
   el.remove();
 }

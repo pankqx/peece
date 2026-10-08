@@ -192,3 +192,45 @@
   filter: none;
   animation: none;
 }
+
+/* WebGL burn mode: the DOM card is only a layout placeholder. */
+.loader__canvas--gl {
+  z-index: 2;
+}
+.loader.is-gl .loader__card {
+  visibility: hidden;
+  animation: none;
+  filter: none;
+}
+.loader__glow {
+  position: absolute;
+  left: 50%;
+  top: 72%;
+  width: 150%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 130 40 / 0.28), rgb(255 90 20 / 0.08) 55%, transparent);
+  animation: glow-flicker 1.6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.loader:not(.is-gl) .loader__glow {
+  display: none;
+}
+@keyframes glow-flicker {
+  0% {
+    opacity: 0.75;
+    scale: 0.96;
+  }
+  35% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.82;
+    scale: 1.03;
+  }
+  100% {
+    opacity: 0.95;
+    scale: 1;
+  }
+}

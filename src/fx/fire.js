@@ -82,7 +82,7 @@ export function createFire({ back, front, target, budget = 1 }) {
         x = left ? rect.left + Math.random() * 10 : rect.right - Math.random() * 10;
         y = rect.top + rect.height * (0.45 + Math.random() * 0.55);
       }
-      const size = (rect.width * (0.18 + Math.random() * 0.22)) * (0.7 + intensity * 0.3);
+      const size = rect.width * (0.1 + Math.random() * 0.16) * (0.7 + intensity * 0.3);
       particles.push({
         x,
         y,
@@ -91,7 +91,7 @@ export function createFire({ back, front, target, budget = 1 }) {
         life: 0,
         max: 0.7 + Math.random() * 0.9,
         size,
-        front: Math.random() < 0.35,
+        front: side < 0.62 && Math.random() < 0.3,
       });
     }
   }
@@ -111,19 +111,20 @@ export function createFire({ back, front, target, budget = 1 }) {
   }
 
   function tongues(ctx, t, count, scale, alpha) {
-    const baseY = rect.bottom + rect.height * 0.02;
+    const baseY = rect.bottom + rect.height * 0.06;
     for (let i = 0; i < count; i++) {
       const u = (i + 0.5) / count;
-      const x = rect.left - rect.width * 0.12 + u * rect.width * 1.24;
-      const edge = 1 - Math.abs(u - 0.5) * 1.2;
-      const h = rect.height * scale * (0.35 + 0.35 * edge + 0.18 * noise(i * 0.9, t)) * (0.75 + intensity * 0.25);
+      const x = rect.left - rect.width * 0.32 + u * rect.width * 1.64;
+      const edge = Math.abs(u - 0.5) * 2;
+      const h = rect.height * scale * (0.3 + 0.45 * edge + 0.18 * noise(i * 0.9, t)) * (0.75 + intensity * 0.25);
       const w = (rect.width / count) * 1.9;
       const sway = noise(i * 1.3 + 7, t * 1.4) * w * 0.9;
       const tipX = x + sway;
       const tipY = baseY - h;
       const grd = ctx.createLinearGradient(0, baseY, 0, tipY);
-      grd.addColorStop(0, `rgba(150,25,10,${alpha})`);
-      grd.addColorStop(0.3, `rgba(240,110,30,${alpha * 0.9})`);
+      grd.addColorStop(0, 'rgba(150,25,10,0)');
+      grd.addColorStop(0.1, `rgba(170,35,12,${alpha})`);
+      grd.addColorStop(0.32, `rgba(240,110,30,${alpha * 0.9})`);
       grd.addColorStop(0.65, `rgba(255,200,90,${alpha * 0.6})`);
       grd.addColorStop(1, 'rgba(255,245,200,0)');
       ctx.fillStyle = grd;
@@ -152,15 +153,15 @@ export function createFire({ back, front, target, budget = 1 }) {
     }
 
     // Warm floor glow behind everything.
-    const glow = ctxB.createRadialGradient(rect.left + rect.width / 2, rect.bottom, 0, rect.left + rect.width / 2, rect.bottom, rect.width * 1.6);
-    glow.addColorStop(0, `rgba(255,120,40,${0.32 * intensity})`);
+    const glow = ctxB.createRadialGradient(rect.left + rect.width / 2, rect.bottom, 0, rect.left + rect.width / 2, rect.bottom, rect.width * 1.1);
+    glow.addColorStop(0, `rgba(255,120,40,${0.2 * intensity})`);
     glow.addColorStop(1, 'rgba(255,120,40,0)');
     ctxB.fillStyle = glow;
     ctxB.fillRect(0, 0, W, H);
 
-    tongues(ctxB, t, 9, 0.95, 0.55); // back layer: tall and soft
-    tongues(ctxB, t * 1.3 + 5, 12, 0.6, 0.5); // mid layer
-    tongues(ctxF, t * 1.7 + 11, 10, 0.28, 0.45); // front layer: low licks over the card's foot
+    tongues(ctxB, t, 9, 1.25, 0.62); // back layer: tall and soft
+    tongues(ctxB, t * 1.3 + 5, 12, 0.75, 0.55); // mid layer
+    tongues(ctxF, t * 1.7 + 11, 12, 0.3, 0.4); // front layer: low licks over the card's foot
 
     particles = particles.filter((p) => (p.life += dt) < p.max);
     for (const p of particles) {
@@ -170,7 +171,7 @@ export function createFire({ back, front, target, budget = 1 }) {
       const s = p.size * (1 - k * 0.6);
       const sprite = sprites[Math.min(4, Math.floor(k * 5))];
       const ctx = p.front ? ctxF : ctxB;
-      ctx.globalAlpha = (1 - k) * (p.front ? 0.5 : 0.75);
+      ctx.globalAlpha = (1 - k) * (p.front ? 0.28 : 0.6);
       ctx.drawImage(sprite, p.x - s / 2, p.y - s / 2, s, s);
     }
     ctxF.globalAlpha = ctxB.globalAlpha = 1;

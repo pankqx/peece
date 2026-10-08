@@ -1,0 +1,219 @@
+.howto {
+  display: grid;
+  gap: 24px;
+  padding: 24px 0 64px;
+}
+.howto__head h1 {
+  font-size: var(--fs-64);
+  margin-top: 8px;
+}
+.howto__head em {
+  font-weight: 500;
+}
+.carousel {
+  overflow: hidden;
+  padding: 0;
+  touch-action: pan-y;
+}
+.carousel__track {
+  display: flex;
+  transition: transform 600ms var(--ease-out);
+}
+.slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: clamp(20px, 4vw, 44px);
+  min-height: 340px;
+}
+.slide__art {
+  display: grid;
+  place-items: center;
+  min-height: 240px;
+  border-radius: var(--radius-l);
+  background: var(--felt);
+  box-shadow: inset 0 0 0 1px rgb(241 220 154 / 0.3), inset 0 0 50px rgb(0 0 0 / 0.5);
+  --card-w: clamp(70px, 9vw, 110px);
+}
+.slide__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--gold-400);
+  opacity: 0.6;
+}
+.slide__copy h2 {
+  font-size: var(--fs-40);
+  margin: 4px 0 12px;
+}
+.slide__copy p {
+  color: var(--ivory-300);
+  max-width: 34em;
+}
+.ill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ill--bet svg {
+  width: min(280px, 100%);
+}
+.ill__amount {
+  position: absolute;
+  top: -6px;
+  right: 10%;
+  font-family: var(--font-display);
+  font-size: var(--fs-40);
+  font-weight: 700;
+  color: var(--gold-200);
+  text-shadow: 0 0 18px rgb(226 195 107 / 0.6);
+}
+.ill--hand .card {
+  margin-inline: calc(var(--card-w) * -0.15);
+  transform: rotate(calc((var(--i) - 2) * 7deg)) translateY(calc((var(--i) - 2) * (var(--i) - 2) * 4px));
+  transform-origin: 50% 130%;
+}
+.ill--hand .card:nth-child(3) {
+  --lift: 18px;
+}
+.ill--duel {
+  gap: 18px;
+}
+.ill__vs {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-28);
+  color: var(--gold-300);
+}
+.carousel__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 0 0 20px;
+}
+.carousel__nav .icon-btn {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.dots {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--gold-500);
+  background: transparent;
+  transition: all var(--dur-2);
+}
+.dot[aria-current='true'] {
+  width: 28px;
+  border-radius: 6px;
+  background: var(--gold-grad);
+}
+.tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 999px;
+  border: 1px solid rgb(217 207 179 / 0.18);
+  background: rgb(255 255 255 / 0.03);
+  color: var(--ivory-100);
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  font-weight: 600;
+  transition: all var(--dur-2);
+}
+.tab__emblem svg {
+  width: 32px;
+  height: 32px;
+}
+.tab:hover {
+  border-color: var(--gold-400);
+}
+.tab[aria-selected='true'] {
+  background: linear-gradient(180deg, rgb(226 195 107 / 0.2), rgb(226 195 107 / 0.05));
+  border-color: var(--gold-300);
+  box-shadow: 0 0 20px rgb(226 195 107 / 0.2);
+}
+.rules {
+  padding: clamp(20px, 4vw, 36px);
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+.rules__head {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.rules__emblem svg {
+  width: 80px;
+  height: 80px;
+}
+.rules__head h2 {
+  font-size: var(--fs-40);
+}
+.rules__list {
+  margin: 0;
+  padding-left: 1.4em;
+  display: grid;
+  gap: 10px;
+  color: var(--ivory-100);
+  max-width: 60em;
+}
+.rules__list li::marker {
+  color: var(--gold-400);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+.rules__example {
+  padding: 16px 18px;
+  border-left: 2px solid var(--gold-400);
+  background: rgb(226 195 107 / 0.06);
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  max-width: 60em;
+}
+.money {
+  padding: clamp(20px, 4vw, 36px);
+  display: grid;
+  gap: 18px;
+}
+.money h2 {
+  font-size: var(--fs-40);
+}
+.money__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.money__item strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  color: var(--gold-200);
+}
+@media (max-width: 760px) {
+  .slide {
+    grid-template-columns: 1fr;
+  }
+  .money__grid {
+    grid-template-columns: 1fr;
+  }
+  .rules__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -191,3 +191,73 @@
 .vingt-total.slot:empty::before {
   display: none;
 }
+
+/* ---------- Liar's Throne ---------- */
+.throne-seat {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+.throne-seat__icon svg {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 10px rgb(226 195 107 / 0.6));
+}
+.throne-controls {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  padding: 16px;
+  text-align: center;
+}
+.band-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+.band-btn {
+  display: grid;
+  gap: 2px;
+  padding: 10px 6px;
+  border-radius: var(--radius-m);
+  border: 1px solid rgb(217 207 179 / 0.2);
+  background: rgb(255 255 255 / 0.03);
+  color: var(--ivory-100);
+  transition: all var(--dur-2) var(--ease-out);
+}
+.band-btn strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-20);
+  letter-spacing: 0.08em;
+}
+.band-btn span {
+  font-size: var(--fs-12);
+  color: var(--ivory-300);
+}
+.band-btn em {
+  font-style: normal;
+  font-size: 0.68rem;
+  color: var(--gold-400);
+}
+.band-btn:hover {
+  border-color: var(--gold-400);
+  transform: translateY(-2px);
+}
+.band-btn[aria-checked='true'] {
+  background: linear-gradient(180deg, rgb(226 195 107 / 0.22), rgb(226 195 107 / 0.06));
+  border-color: var(--gold-300);
+  box-shadow: 0 0 18px rgb(226 195 107 / 0.3);
+}
+.throne-truth.is-true {
+  color: #b9f5dc;
+}
+.throne-truth.is-bluff {
+  color: #ffc9cb;
+}
+@media (max-width: 520px) {
+  .band-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

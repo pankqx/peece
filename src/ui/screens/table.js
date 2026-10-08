@@ -83,7 +83,7 @@ export async function mount(root, { game, rival: rivalId }) {
   const myHand = h('div', { class: 'hand hand--me', role: 'group', 'aria-label': 'Your hand' });
   const center = h('div', { class: 'center' });
   const potAmount = h('span', { class: 'pot__amount tabular' }, '—');
-  const pot = h('div', { class: 'pot', 'aria-label': 'Pot' }, h('span', { class: 'pot__stack', html: potStack() }), h('span', { class: 'pot__label' }, 'Stake'), potAmount);
+  const pot = h('div', { class: 'pot', 'aria-label': 'Pot' }, h('span', { class: 'pot__stack', html: potStack() }), h('span', { class: 'pot__label' }, 'Pot'), potAmount);
   const banner = h('div', { class: 'banner', role: 'status' });
   const deck = h('div', { class: 'shoe', 'aria-hidden': 'true' }, createCard({ id: 0, faceUp: false }), createCard({ id: 0, faceUp: false }), createCard({ id: 0, faceUp: false }));
   const timer = timerRing('Time to act');

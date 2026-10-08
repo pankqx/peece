@@ -24,7 +24,7 @@
   grid-template-rows: auto auto 1fr auto auto auto;
   justify-items: center;
   gap: 10px;
-  min-height: clamp(560px, 72vh, 760px);
+  min-height: clamp(480px, 62vh, 680px);
   padding: 18px clamp(14px, 3vw, 40px) 20px;
   border-radius: clamp(28px, 8vw, 140px);
   background: var(--felt);
@@ -651,9 +651,10 @@
   gap: 4px;
 }
 .react-btn {
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  padding: 0;
   border-radius: 50%;
   border: 1px solid rgb(217 207 179 / 0.12);
   background: rgb(255 255 255 / 0.03);

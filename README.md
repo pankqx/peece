@@ -97,7 +97,7 @@ Hidden extra: `#/dev/cards` shows the whole deck at several sizes.
 
 ## Deploy
 
-- **GitHub Pages:** the included workflow (`.github/workflows/pages.yml`) tests, builds and deploys on every push to `main`. Enable it once under **Settings → Pages → Source: GitHub Actions**. The site appears at `https://pankqx.github.io/peece/`.
+- **GitHub Pages:** the included workflow (`.github/workflows/pages.yml`) tests, builds and publishes `dist/` to the `gh-pages` branch on every push to `main`. One-time setting: **Settings → Pages → Source: Deploy from a branch → `gh-pages` / (root)**. The site appears at `https://pankqx.github.io/peece/`.
 - **Vercel:** import the repo. `vercel.json` already sets the build, the SPA rewrite and strict security headers (CSP, nosniff, referrer and permissions policies).
 
 ## Status

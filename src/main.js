@@ -2,6 +2,7 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/cards.css';
 import './styles/layout.css';
+import './styles/fx.css';
 import { route, startRouter } from './router.js';
 import { shouldShowLoader, runLoader } from './ui/screens/loader.js';
 import { ensureSprite } from './cards/sprite.js';

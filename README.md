@@ -65,7 +65,7 @@ Full rules with worked examples are in the app under **How to play** and in [`do
 
 - **Vite + vanilla JS (ES modules) + CSS.** No framework. All animation uses the Web Animations API and canvas.
 - **All 52 cards are generated SVG** (pips, heraldic double-ended courts, a ceremonial Ace of Spades). Each face is built once into a `<symbol>` and reused with `<use>`.
-- **Burning-King loader** with canvas flames (noise-driven bezier tongues, additive glow particles, embers) and an SVG heat-shimmer filter.
+- **Burning-King loader:** a traditional-pattern King of Spades rendered into a WebGL shader that burns it from a noise-shaped front, with an ember rim, char and scorch bands, heat haze, rising flames and smoke. A canvas-fire version is the fallback when WebGL is unavailable.
 - **WebAudio-only sound.** Deal, flip, chips, win, lose and seal are synthesised, with a persisted mute.
 - **Accessibility:** keyboard play (arrow keys move through your hand), ARIA labels on every card, live-region announcements, and a full `prefers-reduced-motion` path.
 - **Tests:** 31 Vitest checks covering money conservation, stake fixing, rake, ties, idempotent settlement, all four rule sets, seat symmetry, hand frequencies and seal tamper detection.

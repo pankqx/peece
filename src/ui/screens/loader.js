@@ -87,7 +87,7 @@ export async function runLoader(tasks = []) {
   if (burn) {
     el.classList.add('is-gl');
     burn.start();
-    burn.burnTo(0.4, 2600);
+    burn.burnTo(0.27, 2600);
   }
   const fire = calm ? null : createFire({ back, front, target: king, budget: lowEnd ? 0.55 : 1, embersOnly: !!burn });
   fire?.start();

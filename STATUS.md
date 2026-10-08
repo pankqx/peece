@@ -11,13 +11,16 @@ Living hand-off file. Updated with every commit so work can resume from any poin
 - P2 Cards — `src/cards/*` (sprite, pips, courts, aceSpades, back, crown, renderCard, tilt), `/#/dev/cards`
 - P3 Loader — `src/fx/fire.js`, `src/ui/screens/loader.js`, `src/styles/loader.css`
 
+- P4 Foyer — `src/ui/screens/lobby.js`, header, art (emblems + rival portraits), lockout
+- P5 Table + The Omen — `src/ui/screens/table.js` (round loop), `src/ui/games/omen.js`, bet panel, timer ring
+- P6 Chat — `src/ui/components/chat.js`, `src/engine/banter.js`, emoji reactions
+- P7 FX/sound — `src/fx/chips.js`, `src/fx/burst.js`, `src/audio/synth.js` (Web Animations API instead of GSAP)
+- P10–P12 — `src/ui/games/vingt.js`, `throne.js`, `showdown.js` — all verified by automated play
+
 ## Next (exact)
-1. P4 Foyer (lobby): name, rival picker (3 rivals), game picker (4 games), balance, lockout screen, header with mute
-2. P5 Table + The Omen: table shell, bet panel, sealed-shoe seal UI, reveal, payout, rematch
-3. P6 Chat with the rival (banter engine) + emoji reactions
-4. P7 Motion (GSAP) + WebAudio synth; P8 How to Play; P9 Treasury console (#/treasury)
-5. P10–P12 Vingt, Throne, Showdown UIs (engines already exist and are tested)
-6. P13 README, a11y pass, screenshots
+1. P8 How to Play screen (`src/ui/screens/howto.js`) — 3-step carousel + per-game tabs
+2. P9 Treasury (`src/ui/screens/treasury.js`) — balances, ledger, reconciliation, round history with seal verify, restore tokens
+3. P13 README with screenshots, a11y pass
 
 ## Notes
 - Git identity: Pankaj <pankqx@gmail.com>, no co-author trailers.

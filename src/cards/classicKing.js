@@ -37,28 +37,26 @@ function half() {
   for (let i = 0; i < 12; i++) zig += ` L${101 + i * 5} ${i % 2 ? 133 : 138}`;
 
   return `
-  <!-- sword raised behind the King -->
-  <g id="sword">
-    <path d="M66 40 L72 46 L80 150 L72 151 Z" fill="#e9ecef" ${S}/>
-    <path d="M69.5 46 L75.5 149" stroke="${INK}" stroke-width=".7"/>
-    <rect x="58" y="148" width="34" height="7" rx="3" fill="${YEL}" ${S} transform="rotate(-4 75 151)"/>
-    <circle cx="58.6" cy="152.6" r="3.2" fill="${RED}" ${S} stroke-width=".9"/>
-    <circle cx="91.5" cy="150.2" r="3.2" fill="${RED}" ${S} stroke-width=".9"/>
-  </g>
+  <!-- sword blade raised behind the King -->
+  <path d="M62 40 L68 45 L77 128 L70 129 Z" fill="#e9ecef" ${S}/>
+  <path d="M65.5 45 L73.5 127" stroke="${INK}" stroke-width=".7"/>
   <!-- robe -->
-  <path d="M42 175 L44 156 C52 138 80 129 104 126 L152 126 C176 129 204 138 212 156 L214 175 Z" fill="${RED}" ${S}/>
+  <path d="M36 175 L36 148 C50 134 80 128 104 126 L152 126 C176 128 206 134 214 148 L214 175 Z" fill="${RED}" ${S}/>
   ${dots([58, 70, 186, 198], 166, 2.6, YEL)}
   ${dots([64, 192], 158, 2, YEL)}
-  <path d="M44 156 C52 138 80 129 104 126 L106 133 C84 137 60 145 52 160 Z" fill="#fff" ${S}/>
-  <path d="M212 156 C204 138 176 129 152 126 L150 133 C172 137 196 145 204 160 Z" fill="#fff" ${S}/>
+  <path d="M36 148 C50 134 80 128 104 126 L106 133 C84 136 58 142 44 158 L36 160 Z" fill="#fff" ${S}/>
+  <path d="M214 148 C200 134 176 128 152 126 L150 133 C172 136 198 142 206 158 L214 160 Z" fill="#fff" ${S}/>
   ${tails}
   <path d="M104 128 L152 128 L160 175 L96 175 Z" fill="${BLUE}" ${S}/>
   <path d="M108 140 L100 175 M148 140 L156 175" stroke="${YEL}" stroke-width="2.2"/>
   ${cheq}
   <rect x="121" y="144" width="10" height="30" fill="none" ${S} stroke-width=".9"/>
-  <!-- hand on the hilt -->
-  <path d="M70 156 C66 150 70 144 78 145 C86 146 90 152 88 158 C86 164 76 165 70 156 Z" fill="${SKIN}" ${S}/>
-  <path d="M76 148 C78 152 80 154 84 154 M74 151 C76 155 78 157 82 158" stroke="${INK}" stroke-width=".8" fill="none"/>
+  <!-- hilt and gripping hand -->
+  <rect x="55" y="125" width="38" height="7" rx="3" fill="${YEL}" ${S} transform="rotate(-6 74 128)"/>
+  <circle cx="56" cy="130.5" r="3.3" fill="${RED}" ${S} stroke-width=".9"/>
+  <circle cx="92.5" cy="126.4" r="3.3" fill="${RED}" ${S} stroke-width=".9"/>
+  <path d="M66 140 C62 134 66 130 74 131 C82 132 86 137 84 143 C82 149 72 149 66 140 Z" fill="${SKIN}" ${S}/>
+  <path d="M71 134 C73 137 75 139 79 139 M69 137 C71 141 73 143 77 143" stroke="${INK}" stroke-width=".8" fill="none"/>
   <!-- collar -->
   <path d="M94 133 C108 145 148 145 162 133 C156 123 100 123 94 133 Z" fill="${YEL}" ${S}/>
   <path d="${zig}" fill="none" stroke="${INK}" stroke-width=".9"/>

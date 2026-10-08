@@ -1,0 +1,173 @@
+/* Per-game pieces */
+.slot {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: calc(var(--card-w) * 1.05);
+  min-height: calc(var(--card-w) * 1.4);
+}
+.slot:empty::before {
+  content: '';
+  width: var(--card-w);
+  height: calc(var(--card-w) * 1.4);
+  border-radius: calc(var(--card-w) * 0.056);
+  border: 1px dashed rgb(241 220 154 / 0.25);
+  background: rgb(0 0 0 / 0.08);
+}
+.card-badge {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgb(5 8 15 / 0.65);
+  border: 1px solid rgb(241 220 154 / 0.25);
+  color: var(--ivory-100);
+  white-space: nowrap;
+  animation: rise-in 400ms var(--ease-spring) both;
+}
+.card-badge--up {
+  color: #b9f5dc;
+  border-color: rgb(63 182 139 / 0.6);
+  box-shadow: 0 0 12px rgb(63 182 139 / 0.35);
+}
+.card-badge--down {
+  color: #ffc9cb;
+  border-color: rgb(229 72 77 / 0.5);
+}
+.card-badge--gold {
+  color: var(--ink);
+  background: var(--gold-grad);
+  border-color: transparent;
+}
+
+/* ---------- The Omen ---------- */
+.omen-env {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+.envelope {
+  width: clamp(96px, 12vw, 150px);
+  filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.5));
+  animation: env-hover 4s ease-in-out infinite;
+}
+.envelope svg {
+  overflow: visible;
+}
+.envelope__flap {
+  transform-origin: 70px 16px;
+  transform-box: view-box;
+  transition: transform 700ms var(--ease-out);
+}
+.envelope__wax {
+  transform-origin: 70px 62px;
+  transform-box: view-box;
+  transition: transform 500ms var(--ease-out), opacity 500ms;
+}
+.omen-env.is-open .envelope__flap {
+  transform: scaleY(-1);
+}
+.omen-env.is-open .envelope__wax {
+  transform: scale(1.4) rotate(25deg);
+  opacity: 0;
+}
+@keyframes env-hover {
+  50% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+.omen-env__label {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-16);
+  color: var(--gold-200);
+  text-align: center;
+}
+.omen-env__suit {
+  position: absolute;
+  top: -8%;
+  left: 50%;
+  translate: -50% 0;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fbf7ec 55%, #e6dbbd);
+  box-shadow: 0 0 0 2px #e2c36b, 0 0 30px 6px rgb(246 227 163 / 0.6);
+  animation: omen-rise 900ms var(--ease-spring) both;
+  color: var(--ink);
+}
+.omen-suit {
+  width: 32px;
+  height: 32px;
+}
+@keyframes omen-rise {
+  from {
+    transform: translateY(40px) scale(0.3);
+    opacity: 0;
+  }
+}
+.omen-controls {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  padding: 16px;
+  text-align: center;
+}
+.omen-controls__go {
+  display: flex;
+  gap: 10px;
+}
+.call {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.call__label {
+  font-size: var(--fs-12);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-right: 6px;
+}
+.call-btn {
+  min-width: 48px;
+  height: 48px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgb(217 207 179 / 0.2);
+  background: rgb(255 255 255 / 0.04);
+  color: var(--ivory-50);
+  display: grid;
+  place-items: center;
+  transition: all var(--dur-2) var(--ease-out);
+}
+.call-btn .suit-ico {
+  width: 22px;
+  height: 22px;
+}
+.call-btn__none {
+  font-size: var(--fs-12);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.call-btn:hover {
+  border-color: var(--gold-400);
+  transform: translateY(-2px);
+}
+.call-btn[aria-checked='true'] {
+  background: var(--ivory-50);
+  color: var(--ink);
+  border-color: var(--gold-300);
+  box-shadow: 0 0 18px rgb(226 195 107 / 0.45);
+}
+.suit-ico {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}

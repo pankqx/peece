@@ -31,7 +31,12 @@ export const profile = {
 bank.open('you', START_TOKENS);
 for (const id of Object.keys(RIVALS)) bank.open(rivalAcct(id), START_TOKENS);
 
+const listeners = new Set();
+/** Subscribe to any change in balances / profile (header pill, lobby). */
+export const onChange = (fn) => (listeners.add(fn), () => listeners.delete(fn));
+
 export function persist() {
+  listeners.forEach((fn) => fn());
   try {
     localStorage.setItem(KEY, JSON.stringify({ bank: bank.toJSON(), profile }));
   } catch {

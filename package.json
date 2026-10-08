@@ -1,0 +1,21 @@
+{
+  "name": "peece",
+  "private": true,
+  "version": "1.0.0",
+  "description": "PEECE — a midnight members' lounge where you duel the House at cards for play-money tokens.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:pages": "vite build --base=/peece/",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}

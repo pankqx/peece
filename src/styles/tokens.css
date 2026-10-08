@@ -1,0 +1,58 @@
+/* PEECE design tokens — 05-design-system §2 */
+:root {
+  --midnight-950: #05080f;
+  --midnight-900: #0a1220;
+  --midnight-800: #0f1c33;
+  --midnight-700: #172846;
+  --emerald-900: #052e22;
+  --emerald-700: #0b4a37;
+  --emerald-500: #14805c;
+  --gold-200: #f8ebc0;
+  --gold-300: #f1dc9a;
+  --gold-400: #e2c36b;
+  --gold-500: #c9a24a;
+  --gold-700: #8a6a24;
+  --ivory-50: #fbf7ec;
+  --ivory-100: #f3ecd8;
+  --ivory-300: #d9cfb3;
+  --ivory-500: #a69d86;
+  --ruby: #a3202e;
+  --ruby-bright: #d23a49;
+  --ink: #14110c;
+  --danger: #e5484d;
+  --ok: #3fb68b;
+
+  --gold-grad: linear-gradient(135deg, #f6e3a3 0%, #d8b45a 35%, #a8832f 60%, #f1dc9a 100%);
+  --gold-grad-h: linear-gradient(90deg, #a8832f 0%, #f6e3a3 45%, #d8b45a 70%, #a8832f 100%);
+  --felt: radial-gradient(120% 90% at 50% 30%, #0f6a4c 0%, #0b4a37 45%, #052e22 100%);
+
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 22px;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 12px rgb(0 0 0 / 0.25);
+  --shadow-2: 0 2px 4px rgb(0 0 0 / 0.45), 0 12px 32px rgb(0 0 0 / 0.35);
+  --shadow-3: 0 4px 10px rgb(0 0 0 / 0.5), 0 30px 80px rgb(0 0 0 / 0.55);
+  --glow-gold: 0 0 0 1px rgb(241 220 154 / 0.5), 0 0 24px rgb(226 195 107 / 0.45);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-1: 120ms;
+  --dur-2: 240ms;
+  --dur-3: 480ms;
+  --dur-4: 900ms;
+
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-20: 1.25rem;
+  --fs-28: clamp(1.4rem, 1.1rem + 1.2vw, 1.75rem);
+  --fs-40: clamp(1.9rem, 1.3rem + 2.4vw, 2.5rem);
+  --fs-64: clamp(2.6rem, 1.4rem + 5vw, 4rem);
+
+  --header-h: 64px;
+  --chat-w: 320px;
+  --card-w: clamp(64px, 15vw, 118px);
+}

@@ -1,0 +1,1 @@
+import{h as e}from"./index-CODJmphT.js";function l(o,a="info",i=2400){const t=document.getElementById("toasts");if(!t)return;const s=e("div",{class:`toast toast--${a}`,role:"status"},e("span",{class:"toast__dot"}),o);for(t.append(s);t.children.length>3;)t.firstElementChild.remove();setTimeout(()=>{s.classList.add("is-out"),setTimeout(()=>s.remove(),320)},i)}export{l as t};

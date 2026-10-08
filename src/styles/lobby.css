@@ -374,6 +374,9 @@
   .cta .btn {
     width: 100%;
   }
+  .cta__text {
+    font-size: var(--fs-16);
+  }
   .picker__head h2 {
     font-size: var(--fs-28);
   }
@@ -387,8 +390,13 @@
     grid-template-columns: 72px 1fr;
     column-gap: 14px;
   }
+  .game-card > * {
+    grid-column: 2;
+  }
   .game-card__emblem {
-    grid-row: span 3;
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    align-self: center;
   }
   .game-card__emblem svg {
     width: 68px;

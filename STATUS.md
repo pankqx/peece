@@ -20,6 +20,7 @@ Living hand-off file. Updated with every commit so work can resume from any poin
 - P8 How to Play — `src/ui/screens/howto.js`
 - P9 Treasury — `src/ui/screens/treasury.js` (reconciliation, ledger, round verify, audited controls)
 - P13 README + screenshots in `docs/screenshots/`
+- Loader v2 — `src/cards/classicKing.js` (traditional-pattern King of Spades) burned by a WebGL shader in `src/fx/burnGL.js`; canvas fire (`src/fx/fire.js`) is the fallback. No paid assets used.
 
 ## Next (ideas, optional)
 1. Online two-player mode with Supabase (spec in docs/03, docs/04) reusing `src/engine/*`

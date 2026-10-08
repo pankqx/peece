@@ -17,10 +17,13 @@ Living hand-off file. Updated with every commit so work can resume from any poin
 - P7 FX/sound — `src/fx/chips.js`, `src/fx/burst.js`, `src/audio/synth.js` (Web Animations API instead of GSAP)
 - P10–P12 — `src/ui/games/vingt.js`, `throne.js`, `showdown.js` — all verified by automated play
 
-## Next (exact)
-1. P8 How to Play screen (`src/ui/screens/howto.js`) — 3-step carousel + per-game tabs
-2. P9 Treasury (`src/ui/screens/treasury.js`) — balances, ledger, reconciliation, round history with seal verify, restore tokens
-3. P13 README with screenshots, a11y pass
+- P8 How to Play — `src/ui/screens/howto.js`
+- P9 Treasury — `src/ui/screens/treasury.js` (reconciliation, ledger, round verify, audited controls)
+- P13 README + screenshots in `docs/screenshots/`
+
+## Next (ideas, optional)
+1. Online two-player mode with Supabase (spec in docs/03, docs/04) reusing `src/engine/*`
+2. Lighthouse pass on the deployed site; per-rival head-to-head stats in the Foyer
 
 ## Notes
 - Git identity: Pankaj <pankqx@gmail.com>, no co-author trailers.

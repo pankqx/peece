@@ -171,3 +171,23 @@
   height: 1em;
   display: inline-block;
 }
+
+/* ---------- Vingt Duel ---------- */
+.vingt-lucky {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+.card.is-lucky .card__face {
+  box-shadow: 0 0 0 2px var(--gold-300), 0 0 26px 4px rgb(226 195 107 / 0.5), var(--shadow-2);
+}
+.vingt-total {
+  align-content: center;
+}
+.vingt-score {
+  font-size: var(--fs-14);
+  padding: 6px 14px;
+}
+.vingt-total.slot:empty::before {
+  display: none;
+}

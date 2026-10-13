@@ -1,4 +1,4 @@
-import{K as x,k as U,d as Y,h as t,A as G,L as g,M as Z,N as P,O as F,P as k,Q as R,T as Q}from"./index-CnEYuUXa.js";import{m as V}from"./seal-CQ1msoZ-.js";/* empty css              */function j(){return t("div",{class:"envelope",role:"img","aria-label":"Sealed envelope holding the Omen suit",html:`<svg viewBox="0 0 140 100" aria-hidden="true">
+import{K as x,k as U,d as Y,h as t,A as G,L as g,M as Z,N as P,O as F,P as k,Q as R,T as Q}from"./index-BG8v56OD.js";import{m as V}from"./seal-Bnu-XgW4.js";/* empty css              */function j(){return t("div",{class:"envelope",role:"img","aria-label":"Sealed envelope holding the Omen suit",html:`<svg viewBox="0 0 140 100" aria-hidden="true">
       <defs><linearGradient id="envPaper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf7ec"/><stop offset="1" stop-color="#e6dbbd"/></linearGradient>
       <radialGradient id="wax" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#d23a49"/><stop offset=".7" stop-color="#8e1b2a"/><stop offset="1" stop-color="#5a0f1a"/></radialGradient></defs>
       <rect x="4" y="14" width="132" height="82" rx="5" fill="url(#envPaper)" stroke="#c9a24a" stroke-width="1.4"/>

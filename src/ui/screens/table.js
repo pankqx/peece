@@ -100,6 +100,12 @@ export async function mount(root, { game, rival: rivalId }) {
     mySeat
   );
   const controls = h('div', { class: 'controls' });
+  // Whenever the action area changes, make sure it is on screen (no hunting for the buttons).
+  const showControls = new MutationObserver(() => {
+    const r = controls.getBoundingClientRect();
+    if (r.bottom > innerHeight || r.top < 0) controls.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'nearest' });
+  });
+  showControls.observe(controls, { childList: true });
   const sealHash = h('code', { class: 'seal__hash' }, '…');
   const sealBar = h(
     'div',
@@ -122,6 +128,7 @@ export async function mount(root, { game, rival: rivalId }) {
   };
   s.cleanups.push(onChange(refreshPurses));
   s.cleanups.push(() => timer.stop());
+  s.cleanups.push(() => showControls.disconnect());
 
   /* ---------- helpers exposed to the game modules ---------- */
   const say = (event, delay) => chat.say(event, delay);

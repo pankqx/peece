@@ -24,7 +24,7 @@
   grid-template-rows: auto auto 1fr auto auto auto;
   justify-items: center;
   gap: 10px;
-  min-height: clamp(480px, 62vh, 680px);
+  min-height: clamp(420px, 50vh, 600px);
   padding: 18px clamp(14px, 3vw, 40px) 20px;
   border-radius: clamp(28px, 8vw, 140px);
   background: var(--felt);

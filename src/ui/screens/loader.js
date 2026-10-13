@@ -5,6 +5,7 @@ import { createCard } from '../../cards/renderCard.js';
 import { createFire } from '../../fx/fire.js';
 import { createBurn, svgImage } from '../../fx/burnGL.js';
 import { classicKingSvg } from '../../cards/classicKing.js';
+import { settings } from '../../state/settings.js';
 import '../../styles/loader.css';
 
 const SEEN = 'peece.loaderSeen';
@@ -12,6 +13,7 @@ const MIN_MS = 2200;
 
 export function shouldShowLoader() {
   try {
+    if (!settings.loaderEverySession && localStorage.getItem(SEEN)) return false;
     return !sessionStorage.getItem(SEEN);
   } catch {
     return true;
@@ -24,6 +26,7 @@ export function shouldShowLoader() {
 export async function runLoader(tasks = []) {
   try {
     sessionStorage.setItem(SEEN, '1');
+    localStorage.setItem(SEEN, '1');
   } catch {
     /* ignore */
   }

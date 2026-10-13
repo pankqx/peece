@@ -2,8 +2,7 @@
 // the double-entry ledger with filters, and audited house controls.
 import { h, fmt } from '../dom.js';
 import { header } from '../components/header.js';
-import { toast } from '../components/toast.js';
-import { bank, profile, persist, audit, isLocked, onChange } from '../../state/save.js';
+import { bank, profile, isLocked, onChange } from '../../state/save.js';
 import { RIVALS, rivalAcct } from '../../engine/rivals.js';
 import { verifySeal } from '../../engine/seal.js';
 import { GAMES } from '../art.js';
@@ -94,68 +93,6 @@ export function mount(root) {
   kindSel.addEventListener('change', paintLedger);
   acctSel.addEventListener('change', paintLedger);
 
-  /* ---------- house controls (audited) ---------- */
-  const amount = h('input', { class: 'input input--sm', type: 'number', min: '0', max: '1000000', step: '1', value: '1000', 'aria-label': 'Token amount' });
-  const confirmBox = h('div', { class: 'confirm', hidden: true });
-  function confirm(text, fn) {
-    confirmBox.hidden = false;
-    confirmBox.replaceChildren(
-      h('span', {}, text),
-      h('button', { class: 'btn btn--primary btn--sm', type: 'button', onclick: () => ((confirmBox.hidden = true), fn()) }, 'Confirm'),
-      h('button', { class: 'btn btn--ghost btn--sm', type: 'button', onclick: () => (confirmBox.hidden = true) }, 'Cancel')
-    );
-  }
-  const controls = h(
-    'section',
-    { class: 'house panel' },
-    h('p', { class: 'eyebrow' }, 'House controls'),
-    h('h2', {}, 'Restore & adjust'),
-    h('p', { class: 'muted small' }, 'Every action here is written to the audit log below. In the offline lounge, you are the house.'),
-    h(
-      'div',
-      { class: 'house__row' },
-      h('label', { class: 'muted small' }, 'Set your tokens to'),
-      amount,
-      h(
-        'button',
-        {
-          class: 'btn btn--ghost btn--sm',
-          type: 'button',
-          onclick: () => {
-            const v = Math.floor(Number(amount.value));
-            if (!Number.isFinite(v) || v < 0 || v > 1000000) return toast('Enter 0 – 1,000,000', 'bad');
-            confirm(`Set your purse to ${fmt(v)} and clear any lockout?`, () => {
-              const before = bank.bal('you');
-              bank.setTo('you', v, 'house restore');
-              profile.lockedUntil = 0;
-              audit('set_tokens', `${fmt(before)} → ${fmt(v)}, lockout cleared`);
-              persist();
-              toast('Purse updated', 'ok');
-            });
-          },
-        },
-        'Apply'
-      ),
-      h(
-        'button',
-        {
-          class: 'btn btn--ghost btn--sm',
-          type: 'button',
-          disabled: !isLocked() || null,
-          onclick: () =>
-            confirm('Clear the seven-day lockout?', () => {
-              profile.lockedUntil = 0;
-              audit('clear_lockout', 'lockout cleared');
-              persist();
-              toast('Lockout cleared', 'ok');
-            }),
-        },
-        'Clear lockout'
-      )
-    ),
-    confirmBox
-  );
-
   const page = h(
     'main',
     { class: 'screen treasury wrap' },
@@ -174,7 +111,7 @@ export function mount(root) {
       h('div', { class: 'tbl-head' }, h('h2', {}, 'Ledger'), h('div', { class: 'filters' }, kindSel, acctSel)),
       h('div', { class: 'tbl-scroll' }, h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['#', 'When', 'Kind', 'From', 'To', 'Amount'].map((t) => h('th', { scope: 'col' }, t)))), ledgerBody))
     ),
-    controls,
+    h('section', { class: 'house panel' }, h('p', { class: 'eyebrow' }, 'House controls'), h('h2', {}, 'Restore tokens, change rules'), h('p', { class: 'muted small' }, 'Purses, lockouts, timers, rake and data live in the PIN-protected admin console.'), h('div', { class: 'house__row' }, h('a', { class: 'btn btn--primary btn--sm', href: '#/admin' }, 'Open admin console'))),
     h('section', { class: 'panel tbl-panel' }, h('h2', {}, 'Audit log'), auditList)
   );
   root.append(top, page);

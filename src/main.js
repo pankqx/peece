@@ -15,6 +15,7 @@ const screens = {
   howto: () => import('./ui/screens/howto.js'),
   treasury: () => import('./ui/screens/treasury.js'),
   dev: () => import('./ui/screens/devcards.js'),
+  admin: () => import('./ui/screens/admin.js'),
 };
 route('/', screens.lobby);
 route('/play/:game/:rival', screens.table);
@@ -22,6 +23,7 @@ route('/how-to-play', screens.howto);
 route('/how-to-play/:game', screens.howto);
 route('/treasury', screens.treasury);
 route('/dev/cards', screens.dev);
+route('/admin', screens.admin);
 
 ensureSprite();
 

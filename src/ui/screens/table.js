@@ -19,6 +19,7 @@ import { flyChips } from '../../fx/chips.js';
 import { burst } from '../../fx/burst.js';
 import { sfx } from '../../audio/synth.js';
 import { navigate } from '../../router.js';
+import { settings } from '../../state/settings.js';
 import '../../styles/table.css';
 
 const GAME_MODULES = {
@@ -28,8 +29,6 @@ const GAME_MODULES = {
   showdown: () => import('../games/showdown.js'),
 };
 
-const BET_SECONDS = 60;
-const REMATCH_SECONDS = 6;
 
 class Aborted extends Error {}
 let session = null;
@@ -54,7 +53,7 @@ export async function mount(root, { game, rival: rivalId }) {
   };
 
   /* ---------- skeleton ---------- */
-  const top = header({ title: `${meta.name} · vs ${rival.name}` });
+  const top = header({ title: `${meta.name} · vs ${rival.name}`, exit: true });
   s.cleanups.push(() => top.destroy());
 
   const purse = (acct) => h('span', { class: 'seat__purse tabular', 'data-value': bank.bal(acct) }, fmt(bank.bal(acct)));
@@ -267,7 +266,7 @@ export async function mount(root, { game, rival: rivalId }) {
     const myBet = await new Promise((resolve) => {
       const panel = betPanel({ max: bank.bal('you'), initial: profile.lastBet || 50, onLock: resolve });
       controls.replaceChildren(panel);
-      timer.start(BET_SECONDS, () => resolve(null));
+      if (settings.betSeconds) timer.start(settings.betSeconds, () => resolve(null));
     });
     timer.stop();
     guard();
@@ -339,7 +338,7 @@ export async function mount(root, { game, rival: rivalId }) {
     const lines = [
       ...(outcome.lines || []),
       `Bets: you ${fmt(s.round.bets.you)} · ${rival.name} ${fmt(s.round.bets[racct])} → stake ${fmt(s.round.stake)}`,
-      outcome.winner ? `Profit ${fmt(res.profit)} · house rake ${fmt(res.rake)} (5%)` : 'No rake on a tie.',
+      outcome.winner ? `Profit ${fmt(res.profit)} · house rake ${fmt(res.rake)} (${settings.rakePercent}%)` : 'No rake on a tie.',
     ];
     return h(
       'div',
@@ -353,14 +352,15 @@ export async function mount(root, { game, rival: rivalId }) {
   }
 
   async function rematch(result) {
-    const ring = h('span', { class: 'rematch__count tabular' }, String(REMATCH_SECONDS));
+    const ring = h('span', { class: 'rematch__count tabular' }, String(settings.rematchSeconds));
     let paused = false;
     return new Promise((resolve) => {
       const leave = h('button', { class: 'btn btn--ghost', type: 'button', onclick: () => navigate('/') }, 'Leave table');
       const pause = h('button', { class: 'btn btn--ghost', type: 'button', onclick: () => ((paused = !paused), (pause.textContent = paused ? 'Resume' : 'Pause'), paused ? null : tick()) }, 'Pause');
       const now = h('button', { class: 'btn btn--primary', type: 'button', onclick: () => finish() }, 'Deal again');
-      controls.replaceChildren(result, h('div', { class: 'rematch' }, h('span', { class: 'muted' }, 'Next round in '), ring, h('div', { class: 'rematch__btns' }, leave, pause, now)));
-      let left = REMATCH_SECONDS;
+      const auto = settings.autoRematch && settings.rematchSeconds > 0;
+      controls.replaceChildren(result, h('div', { class: 'rematch' }, auto ? [h('span', { class: 'muted' }, 'Next round in '), ring] : null, h('div', { class: 'rematch__btns' }, leave, auto ? pause : null, now)));
+      let left = settings.rematchSeconds;
       let t = 0;
       const finish = () => {
         clearTimeout(t);
@@ -378,7 +378,7 @@ export async function mount(root, { game, rival: rivalId }) {
         }, 1000);
       };
       s.cleanups.push(() => clearTimeout(t));
-      tick();
+      if (auto) tick();
     });
   }
 
@@ -388,7 +388,7 @@ export async function mount(root, { game, rival: rivalId }) {
       for (const id of restoreRivals()) if (id === rival.id) say('restored', 300);
       persist();
       if (isLocked() || bank.bal('you') <= 0) {
-        checkLockout();
+        checkLockout(settings.lockoutDays);
         persist();
         controls.replaceChildren(
           h('div', { class: 'result result--lose panel' }, h('p', { class: 'eyebrow' }, 'House rule'), h('h2', { class: 'result__title' }, 'Your purse is empty'), h('p', { class: 'muted' }, 'At zero tokens you step away from the tables for seven days.'), h('div', { class: 'result__actions' }, h('a', { class: 'btn btn--primary', href: '#/' }, 'Back to the Foyer')))
@@ -428,8 +428,8 @@ export async function mount(root, { game, rival: rivalId }) {
       const outcome = await mod.play(ctx, seal);
       guard();
       const winAcct = outcome.winner === 'you' ? 'you' : outcome.winner === 'rival' ? racct : null;
-      const res = settle(bank, s.round, winAcct, outcome.profit ?? s.round.stake);
-      checkLockout();
+      const res = settle(bank, s.round, winAcct, outcome.profit ?? s.round.stake, settings.rakePercent / 100);
+      checkLockout(settings.lockoutDays);
       recordRound({ at: Date.now(), game, rival: rival.id, net: res.net?.you ?? 0, stake: s.round.stake, headline: outcome.headline || '', commit: seal.commit, text: seal.text });
 
       // Celebrate.

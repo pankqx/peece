@@ -12,6 +12,8 @@ export const CHIP_SVG = `<svg class="chip-ico" viewBox="0 0 40 40" aria-hidden="
 
 const ICON_SOUND = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9h4l5-4v14l-5-4H4Z" fill="currentColor" fill-opacity=".15"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>`;
 const ICON_MUTE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9h4l5-4v14l-5-4H4Z" fill="currentColor" fill-opacity=".15"/><path d="M17 9l5 6M22 9l-5 6"/></svg>`;
+const ICON_GEAR = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>`;
+const ICON_EXIT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5H5v14h5"/><path d="M14 8l4 4-4 4M18 12H9"/></svg>`;
 const ICON_BOOK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 5.5C7 4 10 4 12 6c2-2 5-2 8-.5V19c-3-1.5-6-1.5-8 .5-2-2-5-2-8-.5Z"/><path d="M12 6v13.5"/></svg>`;
 
 /** Animate a number in an element from its current value to `to`. */
@@ -32,7 +34,7 @@ export function countTo(el, to, ms = 900) {
   requestAnimationFrame(step);
 }
 
-export function header({ back = false, title = null } = {}) {
+export function header({ title = null, exit = false } = {}) {
   const amount = h('span', { class: 'tabular', 'data-value': bank.bal('you') }, fmt(bank.bal('you')));
   const pill = h('span', { class: 'token-pill', title: 'Your tokens (play money)', html: CHIP_SVG }, amount);
   pill.setAttribute('aria-label', 'Your tokens');
@@ -75,7 +77,9 @@ export function header({ back = false, title = null } = {}) {
       h(
         'nav',
         { class: 'topbar__nav', 'aria-label': 'Main' },
+        exit ? h('a', { class: 'btn btn--ghost btn--sm topbar__exit', href: '#/', title: 'Leave the table and return to the Foyer' }, h('span', { class: 'btn__icon', html: ICON_EXIT }), 'Leave table') : null,
         h('a', { class: 'icon-btn', href: '#/how-to-play', 'aria-label': 'How to play', title: 'How to play', html: ICON_BOOK }),
+        h('a', { class: 'icon-btn', href: '#/admin', 'aria-label': 'Admin console', title: 'Admin console', html: ICON_GEAR }),
         muteBtn,
         pill
       )

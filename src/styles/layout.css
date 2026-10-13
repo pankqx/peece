@@ -98,3 +98,25 @@
     font-size: var(--fs-16);
   }
 }
+.topbar__exit .btn__icon svg {
+  width: 16px;
+  height: 16px;
+}
+@media (max-width: 560px) {
+  .topbar__exit {
+    padding-inline: 0.8em;
+    font-size: 0;
+    gap: 0;
+  }
+  .topbar__exit .btn__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .topbar__nav {
+    gap: 6px;
+  }
+  .topbar__nav .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+}

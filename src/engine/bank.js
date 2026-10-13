@@ -99,7 +99,7 @@ export function addEscrow(bank, round, acct, amount) {
  * Rake (decision D11) = floor(5% of profit), paid to the treasury.
  * Idempotent: a settled round is never paid twice (docs/04 T5).
  */
-export function settle(bank, round, winner, profit = 0) {
+export function settle(bank, round, winner, profit = 0, rakeRate = RAKE) {
   if (round.settled) return round.result;
   const [a, b] = Object.keys(round.escrow);
   let result;
@@ -110,7 +110,7 @@ export function settle(bank, round, winner, profit = 0) {
   } else {
     const loser = winner === a ? b : a;
     const p = Math.min(Math.max(0, Math.floor(profit)), round.escrow[loser]);
-    const rake = Math.floor(p * RAKE);
+    const rake = Math.floor(p * rakeRate);
     bank.move('escrow', winner, round.escrow[winner], 'stake-return', round.id);
     if (p - rake > 0) bank.move('escrow', winner, p - rake, 'win', round.id);
     if (rake > 0) bank.move('escrow', 'treasury', rake, 'rake', round.id);

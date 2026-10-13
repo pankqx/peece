@@ -65,9 +65,10 @@ export function setPref(key, value) {
 export const isLocked = () => profile.lockedUntil > Date.now();
 
 /** Called after every settlement: 0 tokens → 7-day lockout. */
-export function checkLockout() {
+export function checkLockout(days = LOCKOUT_MS / 86400000) {
+  if (days <= 0) return false;
   if (bank.bal('you') <= 0 && !isLocked()) {
-    profile.lockedUntil = Date.now() + LOCKOUT_MS;
+    profile.lockedUntil = Date.now() + days * 86400000;
     return true;
   }
   return false;

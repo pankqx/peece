@@ -6,9 +6,9 @@ import { evaluate, compareShowdown, resolveDecisions, HAND_SIZE } from '../../en
 import { showdownDecide, showdownAnswer } from '../../engine/rivals.js';
 import { cardShort } from '../../engine/cards.js';
 import { randInt } from '../../engine/rng.js';
+import { settings } from '../../state/settings.js';
 import '../../styles/games.css';
 
-const ACT_SECONDS = 45;
 const VERB = { hold: 'Holds', raise: 'Raises!', fold: 'Folds' };
 
 export function prepare(ctx) {
@@ -52,7 +52,7 @@ export async function play(ctx, seal) {
       { label: 'Hold', value: 'hold' },
       { label: `Raise +${fmt(stake)}`, value: 'raise', primary: true, disabled: !iCanRaise, title: iCanRaise ? null : `You need ${fmt(stake)} more tokens to raise` },
     ],
-    { seconds: ACT_SECONDS, onTimeout: 'fold', hint: iCanRaise ? 'Choices are secret and revealed together. A raise doubles the stake.' : `Raise disabled — you need ${fmt(stake)} tokens beyond your stake.` }
+    { seconds: settings.actSeconds, onTimeout: 'fold', hint: iCanRaise ? 'Choices are secret and revealed together. A raise doubles the stake.' : `Raise disabled — you need ${fmt(stake)} tokens beyond your stake.` }
   );
   ctx.setStatus('me', VERB[mine1], 'locked');
   el.controls.replaceChildren(h('p', { class: 'controls__hint muted' }, theyDecided ? 'Revealing choices…' : `Waiting for ${rival.name}…`));
@@ -74,7 +74,7 @@ export async function play(ctx, seal) {
           { label: 'Fold', value: 'fold' },
           { label: `Call +${fmt(stake)}`, value: 'call', primary: true, disabled: !canCall },
         ],
-        { seconds: ACT_SECONDS, onTimeout: 'fold', hint: 'Folding loses your stake only. Calling plays for double.' }
+        { seconds: settings.actSeconds, onTimeout: 'fold', hint: 'Folding loses your stake only. Calling plays for double.' }
       );
       ctx.setStatus('me', ans === 'call' ? 'Calls' : 'Folds', 'locked');
       if (ans === 'call') {

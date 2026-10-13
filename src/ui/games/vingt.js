@@ -7,9 +7,9 @@ import { evaluate, compareVingt, MAX_CARDS } from '../../engine/games/vingt.js';
 import { vingtWantsHit } from '../../engine/rivals.js';
 import { SUIT_NAME, SUIT_GLYPH, suitOf, cardShort } from '../../engine/cards.js';
 import { randInt } from '../../engine/rng.js';
+import { settings } from '../../state/settings.js';
 import '../../styles/games.css';
 
-const ACT_SECONDS = 45;
 
 const describe = (e) => (e.bust ? `Bust (${e.total})` : e.natural ? 'Natural 21' : e.charlie ? `Five-Card Charlie (${e.total})` : `${e.soft ? 'Soft ' : ''}${e.total}`);
 
@@ -94,7 +94,7 @@ export async function play(ctx, seal) {
         { label: 'Hit', value: 'hit', primary: true },
         { label: 'Stand', value: 'stand' },
       ],
-      { seconds: ACT_SECONDS, onTimeout: 'stand', hint: 'Hidden from your rival. Five cards without busting is a Charlie.' }
+      { seconds: settings.actSeconds, onTimeout: 'stand', hint: 'Hidden from your rival. Five cards without busting is a Charlie.' }
     );
     if (choice === 'stand') {
       myDone = true;

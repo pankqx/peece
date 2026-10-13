@@ -8,9 +8,9 @@ import { throneClaim, throneAnswer } from '../../engine/rivals.js';
 import { cardShort } from '../../engine/cards.js';
 import { randInt } from '../../engine/rng.js';
 import { persist } from '../../state/save.js';
+import { settings } from '../../state/settings.js';
 import '../../styles/games.css';
 
-const ACT_SECONDS = 45;
 const THRONE_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 3 7l5 4 4-7 4 7 5-4-1 11Z" fill="#e2c36b"/><rect x="4" y="19" width="16" height="2.5" rx="1" fill="#e2c36b"/></svg>`;
 
 export function prepare(ctx) {
@@ -78,7 +78,7 @@ export async function play(ctx, seal) {
     el.controls.replaceChildren(h('div', { class: 'throne-controls panel' }, h('div', { class: 'band-row', role: 'radiogroup', 'aria-label': 'Claim a band' }, bandBtns), truth, go));
     const ok = await new Promise((resolve) => {
       go.addEventListener('click', () => resolve(true));
-      ctx.timer.start(ACT_SECONDS, () => resolve(false));
+      if (settings.actSeconds) ctx.timer.start(settings.actSeconds, () => resolve(false));
     });
     ctx.timer.stop();
     ctx.guard();
@@ -129,7 +129,7 @@ export async function play(ctx, seal) {
         { label: `Believe · pay ${fmt(pay)}`, value: 'believe' },
         { label: `Call · win or lose ${fmt(stake)}`, value: 'call', primary: true },
       ],
-      { seconds: ACT_SECONDS, onTimeout: 'believe', hint: `Believing costs ${Math.round(BELIEVE_PCT[claim] * 100)}% of the stake and the card stays hidden. Calling flips it.` }
+      { seconds: settings.actSeconds, onTimeout: 'believe', hint: `Believing costs ${Math.round(BELIEVE_PCT[claim] * 100)}% of the stake and the card stays hidden. Calling flips it.` }
     );
     ctx.setStatus('me', answer === 'call' ? 'Calls!' : 'Believes', 'locked');
   }

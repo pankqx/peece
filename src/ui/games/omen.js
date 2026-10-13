@@ -8,9 +8,9 @@ import { resolveOmen, HAND_SIZE } from '../../engine/games/omen.js';
 import { omenDecide } from '../../engine/rivals.js';
 import { SUIT_NAME, SUIT_GLYPH, RANKS, cardShort } from '../../engine/cards.js';
 import { randInt } from '../../engine/rng.js';
+import { settings } from '../../state/settings.js';
 import '../../styles/games.css';
 
-const PICK_SECONDS = 45;
 
 function envelope() {
   return h('div', {
@@ -117,7 +117,7 @@ export async function play(ctx, seal) {
 
   const myIndex = await new Promise((resolve) => {
     confirm.addEventListener('click', () => resolve(sel.index));
-    ctx.timer.start(PICK_SECONDS, () => resolve(-1));
+    if (settings.actSeconds) ctx.timer.start(settings.actSeconds, () => resolve(-1));
   });
   ctx.timer.stop();
   ctx.guard();

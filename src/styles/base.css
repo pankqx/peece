@@ -124,6 +124,9 @@ p {
 }
 
 /* ---------- Buttons ---------- */
+a.btn {
+  text-decoration: none;
+}
 .btn {
   --btn-bg: transparent;
   position: relative;

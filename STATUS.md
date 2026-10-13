@@ -22,6 +22,8 @@ Living hand-off file. Updated with every commit so work can resume from any poin
 - P13 README + screenshots in `docs/screenshots/`
 - Loader v2 — `src/cards/classicKing.js` (traditional-pattern King of Spades) burned by a WebGL shader in `src/fx/burnGL.js`; canvas fire (`src/fx/fire.js`) is the fallback. No paid assets used.
 
+- Admin console — `src/ui/screens/admin.js` (`#/admin`, PIN-gated): purses, lockout, house rules (`src/state/settings.js`: timers, auto-rematch, rake, lockout days, intro), rounds, export/import/reset, audit log. Table has an always-visible Leave table button.
+
 ## Next (ideas, optional)
 1. Online two-player mode with Supabase (spec in docs/03, docs/04) reusing `src/engine/*`
 2. Lighthouse pass on the deployed site; per-rival head-to-head stats in the Foyer

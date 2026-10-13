@@ -93,7 +93,7 @@ npm test           # engine tests
 npm run build      # production build in dist/
 ```
 
-Hidden extra: `#/dev/cards` shows the whole deck at several sizes.
+Extras: `#/admin` is the PIN-protected admin console (restore tokens, clear lockouts, change timers, rake and lockout rules, export/import/reset data); `#/dev/cards` shows the whole deck at several sizes.
 
 ## Deploy
 
